@@ -1,0 +1,4 @@
+Phantom Language
+
+Commands:
+--help: Show this list

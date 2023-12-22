@@ -1,0 +1,12 @@
+// ---------------------------------------------------------
+// phantom-lang
+// https://github.com/notcl4y14/phantom-lang
+// ---------------------------------------------------------
+
+// 22/12/2023
+- Initial release
+- Created Phantom.hx
+- Created Token.hx
+- Created TokenType.hx
+- Created assets folder
+	+ usage.txt
