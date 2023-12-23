@@ -18,8 +18,12 @@ class Phantom {
 			return;
 		}
 
-		Sys.println("Hello World!");
-		Sys.println( new Token(TokenType.String, "lol").string() );
+		var lexer = new Lexer("+-*/%^= += -= *= /= %= ^= .,:;&|! ()[]{} 0.5+2 `\"lol 'a'\"` x1 lol_foobar true false let var");
+		var tokens = lexer.lexerize();
+
+		for (token in tokens) {
+			Sys.println(token.string());
+		}
 	}
 
 	static public function main() {

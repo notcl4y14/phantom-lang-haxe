@@ -3,6 +3,10 @@
 // https://github.com/notcl4y14/phantom-lang
 // ---------------------------------------------------------
 
+// 23/12/2023
+- Created Lexer.hx
+- Created phantom.bat
+
 // 22/12/2023
 - Initial release
 - Created Phantom.hx
