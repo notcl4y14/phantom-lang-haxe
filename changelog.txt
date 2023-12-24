@@ -3,6 +3,12 @@
 // https://github.com/notcl4y14/phantom-lang
 // ---------------------------------------------------------
 
+// 24/12/2023
+- Added ==, !=, <=, >=, < and > operator tokens
+- Added positions to tokens
+- Fixed some stuff in Lexer.hx including lexerizeNumber() and lexerizeIdentifier()
+- Created Position.hx
+
 // 23/12/2023
 - Created Lexer.hx
 - Created phantom.bat
