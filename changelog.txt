@@ -3,6 +3,10 @@
 // https://github.com/notcl4y14/phantom-lang
 // ---------------------------------------------------------
 
+// 26/12/2023
+- Added lexer error
+- Broke the code
+
 // 25/12/2023
 - Added file reader
 - Created tests folder

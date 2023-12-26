@@ -7,11 +7,16 @@ class Phantom {
 		Sys.println(lines);
 	}
 
-	public function run(code: String) {
-		var lexer = new Lexer(code);
-		var tokens = lexer.lexerize();
+	static public function run(filename: String, code: String) {
+		var lexer = new Lexer(filename, code);
+		var result = lexer.lexerize();
 
-		for (token in tokens) {
+		if (result.error != null) {
+			Sys.println(result.error.string());
+			return;
+		}
+
+		for (token in result.result) {
 			Sys.println(token.string());
 		}
 	}
@@ -55,7 +60,7 @@ class Phantom {
 		var code = sys.io.File.read(filename)
 			.readAll().toString();
 
-		this.run(code);
+		Phantom.run(filename, code);
 	}
 
 	static public function main() {

@@ -1,8 +1,22 @@
+class Result {
+	public var result: Dynamic;
+	public var callback: Int;
+	public var error: Error;
+
+	public function new(result: Dynamic, callback: Int, error: Error) {
+		this.result = result;
+		this.callback = callback;
+		this.error = error;
+	}
+}
+
 class Lexer {
+	public var filename: String;
 	public var code: String;
 	public var position: Position;
 
-	public function new(code: String) {
+	public function new(filename: String, code: String) {
+		this.filename = filename;
 		this.code = code;
 		this.position = new Position(-1, 0, -1);
 
@@ -36,14 +50,22 @@ class Lexer {
 		var list = [];
 
 		while (!this.isEof()) {
-			var token = this.lexerizeToken();
+			var res = this.lexerizeToken();
 			var leftPosition = this.getPosition().clone();
 
 			// TODO: Make an error
-			if (token == null) {
-				this.advance();
-				continue;
+			if (res.callback >= 1) {
+				var char = this.at();
+				var rightPosition = this.getPosition().advance().clone();
+
+				return new Result(null, 0, new Error(this.filename,
+						[leftPosition, rightPosition],
+						'Undefined character \'${char}\''
+					)
+				);
 			}
+
+			var token = res.result;
 
 			if (token.position[0] == null) {
 				token.position[0] = leftPosition;
@@ -57,12 +79,13 @@ class Lexer {
 			this.advance();
 		}
 
-		return list;
+		return new Result(list, 0, null);
 	}
 
 	public function lexerizeToken() {
 		var char = this.at();
 		var result = null;
+		var callback = 0;
 
 		// Whitespace
 		if ( StringTools.contains(" \t\r\n", char) ) {
@@ -111,9 +134,12 @@ class Lexer {
 		// Identifier | Literal | Keyword
 		} else if ( StringTools.contains("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_", char) ) {
 			result = this.lexerizeIdentifier();
+
+		} else {
+			callback = 1;
 		}
 
-		return result;
+		return new Result(result, callback, null);
 	}
 
 	// ---------------------------------------------------------------------
